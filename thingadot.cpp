@@ -6,16 +6,52 @@ ThinkADot() : states(3, {-0}) {
 void ThinkADot::
 play(int opt) {
 	cout << "play~" << opt;
-	if(opt == 0) {
-		if(states[0][opt] == -1) {
-			
+	int index = opt;
+	int prev_index = 3;
+	for(int i = 0; i < 3; i++) {
+		if(i == 1) {
+			index--;
 		}
-
-	} else if(opt == 1) {
-
-	} else {
-
+		if(states[i][index] == -1) {
+			//to the left
+			prev_index = index;
+			states[i][prev_index] = 0 - states[i][prev_index];
+			if(index == 0) {
+				i++;
+			} else {
+				index--;
+			}
+		} else {
+			//to the right
+			prev_index = index;
+			states[i][prev_index] = 0 - states[i][prev_index];
+			if(index == 2) {
+				i++;
+			} else {
+				index++;
+			}
+		}
 	}
+	if(index == 0) {
+		//P
+		print();
+		cout << "Exit at P" << endl;
+	}
+	if(index == 2) {
+		//Q
+		print();
+		cout << "Exit at Q" << endl;
+	}
+	if(index == 1 && prev_index == 0) {
+		//P
+		print();
+		cout << "Exit at P" << endl;
+	} else if(index == 1 && prev_index == 2) {
+		//Q
+		print();
+		cout << "Exit at Q" << endl;
+	}
+
 }
 
 void ThinkADot::
